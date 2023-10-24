@@ -9,13 +9,13 @@ const Utils = new NativeClass('Terraria', 'Utils');
 const Color = new NativeClass('Microsoft.Xna.Framework.Graphics', 'Color');
 
 LegacyPlayerRenderer.DrawPlayer.hook((original, self, camera, drawPlayer, position, rotation, rotationOrigin, shadow, scale, positionalOffsets) => {
-    if (Main.gameMenu) {
-        original(self, camera, drawPlayer, position, rotation, rotationOrigin, shadow, scale, positionalOffsets);
-    }
-
+    const result = original(self, camera, drawPlayer, position, rotation, rotationOrigin, shadow, scale, positionalOffsets);
     const heldItem = drawPlayer.inventory[drawPlayer.selectedItem];
-    if (heldItem === null || heldItem.type === 0 || heldItem.holdStyle !== 0) {
-        return;
+
+    if (Main.gameMenu || heldItem === null || heldItem.type === 0 || heldItem.holdStyle !== 0 ||
+        !drawPlayer.active || drawPlayer.dead || drawPlayer.stoned ||
+        drawPlayer.itemAnimation > 0) {
+        return result;
     }
 
     const weaponTexture = TextureAssets.Item[heldItem.type].Value;
