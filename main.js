@@ -29,12 +29,12 @@ LegacyPlayerRenderer.DrawPlayer.hook((original, self, camera, drawPlayer, positi
     let spriteEffects = SpriteEffects.None;
 
     if (drawPlayer.direction < 0) { 
-        spriteEffects = SpriteEffects.FlipHorizontally;
+        spriteEffects.value__ = SpriteEffects.FlipHorizontally.value__;
     }
 
     if (drawPlayer.gravDir < 0) {
         drawY += 6;
-        spriteEffects = SpriteEffects.FlipVertically | spriteEffects;
+        spriteEffects.value__ = SpriteEffects.FlipVertically.value__ | spriteEffects.value__;
     }
 
 
