@@ -403,7 +403,6 @@ LegacyPlayerRenderer.DrawPlayer.hook((original, self, camera, drawPlayer, positi
         return;
     }
 
-    const isAStaff = Item.staff[heldItem.type];
     let isYoyo = ItemID.Sets.Yoyo[heldItem.type];
 
     let drawX = drawPlayer.MountedCenter.X - Main.screenPosition.X;
